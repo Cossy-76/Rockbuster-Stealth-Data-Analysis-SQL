@@ -1,0 +1,42 @@
+Here is a SQL query using "joins" to find the top 5 customers in any of the top 10 cities who've paid the highest total amounts to Rockbuster.
+
+SELECT
+    c.customer_id AS "Customer ID",
+    c.first_name AS "Customer First Name",
+    c.last_name AS "Customer Last Name",
+    co.country AS "Country",
+    ct.city AS "City",
+    SUM(p.amount) AS "Total Amount Paid"
+FROM
+    customer AS c
+JOIN
+    address AS a ON c.address_id = a.address_id
+JOIN
+    city AS ct ON a.city_id = ct.city_id
+JOIN
+    country AS co ON ct.country_id = co.country_id
+JOIN
+    payment AS p ON c.customer_id = p.customer_id
+WHERE
+    ct.city IN (
+        SELECT ct_top.city
+        FROM (
+            SELECT ct.city, COUNT(c.customer_id) AS customer_count
+            FROM customer AS c
+            JOIN address AS a ON c.address_id = a.address_id
+            JOIN city AS ct ON a.city_id = ct.city_id
+            JOIN country AS co ON ct.country_id = co.country_id
+            GROUP BY ct.city
+            ORDER BY customer_count DESC
+            LIMIT 10
+        ) AS ct_top
+    )
+GROUP BY
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    co.country,
+    ct.city
+ORDER BY
+    "Total Amount Paid" DESC
+LIMIT 5;
