@@ -21,6 +21,6 @@ Welcome to the Rockbuster Stealth Data Analysis Project repository! As a data an
 <li><p>Performing joins, utilizing common table expressions (CTEs), and presenting results through visualizations.</p>
 </li>
 </ul>
-<p>Link to Tableau Presentation:
-public.tableau.com/app/profile/hono.cosmas/viz/RockbusterAnalytics/RockbusterAnalytics?publish=yes</p>
+[Link to Tableau Presentation](public.tableau.com/app/profile/hono.cosmas/viz/RockbusterAnalytics/RockbusterAnalytics?publish=yes)
+
 
